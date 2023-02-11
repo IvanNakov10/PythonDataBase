@@ -19,8 +19,11 @@ print(Employee1.first)
 print(Employee1.last)
 print(Employee1.pay)
 
-#c.execute("INSERT INTO employees VALUES ('Ivanka', 'Nakov', 50000)")
-#conn.commit()
+c.execute("INSERT INTO employees VALUES (?, ?, ?)", (Employee1.first, Employee1.last, Employee1.pay))
+conn.commit()
+
+c.execute("INSERT INTO employees VALUES (:first, :last, :pay)", {'first': Employee2.first, 'last':Employee2.last, 'pay':Employee2.pay})
+conn.commit()
 
 c.execute("SELECT * FROM employees WHERE last='Nakov'")
 

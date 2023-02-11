@@ -26,28 +26,22 @@ def update_emp(emp, pay):
 
 def remove_emp(emp):
     with conn:
-        c.execute("DELETE form employees WHERE first = :first AND last = :last",
+        c.execute("DELETE from employees WHERE first = :first AND last = :last",
                   {'first': emp.first, 'last': emp.last})
 
 Employee1 = Employee('Gogo', 'Petrov', 2000)
 Employee2 = Employee('Vasko', 'Petrov', 3000)
 
-c.execute("INSERT INTO employees VALUES (?, ?, ?)", (Employee1.first, Employee1.last, Employee1.pay))
-conn.commit()
+insert_emp(Employee1)
+insert_emp(Employee2)
 
-c.execute("INSERT INTO employees VALUES (:first, :last, :pay)", {'first': Employee2.first, 'last':Employee2.last, 'pay':Employee2.pay})
-conn.commit()
+emps = get_emps_Byname('Petrov')
+print(emps)
 
-c.execute("SELECT * FROM employees WHERE last=?", ('Nakov',))
+update_emp(Employee2, 100)
+remove_emp(Employee2)
 
-print(c.fetchall())
-
-conn.commit()
-
-c.execute("SELECT * FROM employees WHERE last=:last", {'last': 'Petrov'})
-
-print(c.fetchall())
-
-conn.commit()
+emps = get_emps_Byname('Petrov')
+print(emps)
 
 conn.close()

@@ -21,9 +21,15 @@ Employee2 = Employee('Vasko', 'Petrov', 3000)
 #c.execute("INSERT INTO employees VALUES (:first, :last, :pay)", {'first': Employee2.first, 'last':Employee2.last, 'pay':Employee2.pay})
 #conn.commit()
 
-c.execute("SELECT * FROM employees WHERE last='Nakov'")
+c.execute("SELECT * FROM employees WHERE last=?", ('Nakov',))
 
 print(c.fetchall())
+
+conn.commit()
+
+c.execute("SELECT * FROM employees WHERE last=:last", {'last': 'Petrov'})
+
+print(c.fetchmany(2))
 
 conn.commit()
 
